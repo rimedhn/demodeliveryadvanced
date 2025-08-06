@@ -310,8 +310,12 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
+// Reemplaza la URL con la de tu Web App de Google Apps Script (ver instrucciones previas)
+const GOOGLE_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxViOKIlVnb-4RLunZV_dIEAz3U4xA9c5kcXIWZ_ayMafILcYobJ5J9GK3dOti4zKlQTg/exec";
+
 document.getElementById("whatsapp-send-btn").onclick = function(e) {
   e.preventDefault();
+
   let serviceId = document.getElementById("serviceType").value;
   let service = services.find(s => s.id === serviceId);
   let desc = document.getElementById("description").value.trim();
@@ -330,8 +334,8 @@ document.getElementById("whatsapp-send-btn").onclick = function(e) {
 
   let pedidoID = "FG" + Date.now().toString().slice(-6);
 
-  // 1. Guardar en Google Sheets
-  fetch("https://script.google.com/macros/s/AKfycbxViOKIlVnb-4RLunZV_dIEAz3U4xA9c5kcXIWZ_ayMafILcYobJ5J9GK3dOti4zKlQTg/exec", {
+  // 1. Guardar el pedido en Google Sheet
+  fetch(GOOGLE_WEBAPP_URL, {
     method: "POST",
     body: JSON.stringify({
       id_pedido: pedidoID,
@@ -350,7 +354,7 @@ document.getElementById("whatsapp-send-btn").onclick = function(e) {
     }
   }).then(r => r.text())
     .then(res => {
-      // 2. WhatsApp
+      // 2. Abrir WhatsApp con el mensaje
       let msg =
 `*Pedido FastGo*
 Nombre: ${name}
