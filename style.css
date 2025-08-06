@@ -154,23 +154,7 @@ main {
   .footer-app-menu { display: flex; }
 }
 
-/* Botón flotante WhatsApp sigue igual */
-.whatsapp-float {
-  position: fixed;
-  bottom: 80px;
-  right: 19px;
-  background: #25d366;
-  color: #fff;
-  border-radius: 50%;
-  width: 56px; height: 56px;
-  display: flex;
-  align-items: center; justify-content: center;
-  font-size: 2.2em;
-  box-shadow: 0 4px 14px rgba(76,175,80,0.14);
-  z-index: 120;
-  transition: background .17s;
-}
-.whatsapp-float:hover { background: #43a047; color: #fff; }
+
 
 /* Menú tipo app */
 .app-menu {
