@@ -82,7 +82,10 @@ function fillServiceSelect() {
   select.innerHTML = services.map(s => `<option value="${s.id}">${s.nombre} (${s.categoria})</option>`).join('');
 }
 function showSchedule() {
-  document.getElementById("schedule").innerHTML = `<strong>Horario:</strong> Lunes a sábado 9:00-21:00`;
+  const el = document.getElementById("schedule");
+  if (el) {
+    el.innerHTML = `<strong>Horario:</strong> Lunes a sábado 9:00-21:00`;
+  }
 }
 showSchedule();
 
