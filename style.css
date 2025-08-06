@@ -225,7 +225,7 @@ main {
 /* Botón flotante WhatsApp */
 .whatsapp-float {
   position: fixed;
-  bottom: 80px;
+  bottom: 100px;
   right: 19px;
   background: #25d366;
   color: #fff;
