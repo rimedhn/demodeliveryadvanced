@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>FastGo - Delivery y Mandados pedidos a Whatsapp</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body>
+  <!-- Menú interactivo tipo app (solo escritorio) -->
+  <nav id="app-menu" class="app-menu">
+    <button data-section="services" style="order:1"><i class="fas fa-list"></i><span>Servicios</span></button>
+    <button data-section="order-stepper" style="order:2"><i class="fas fa-bolt"></i><span>Solicitar</span></button>
+    <button data-section="home" class="active" style="order:3"><i class="fas fa-home"></i><span>Inicio</span></button>
+    <button data-section="track" style="order:4"><i class="fas fa-search-location"></i><span>Mi Pedido</span></button>
+    <button data-section="faq" style="order:5"><i class="fas fa-question-circle"></i><span>FAQ</span></button>
+    <button data-section="gallery" style="order:6"><i class="fas fa-image"></i><span>Galería</span></button>
+    <button data-section="contact" style="order:7"><i class="fas fa-envelope"></i><span>Contacto</span></button>
+  </nav>
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/50493593126" class="whatsapp-float" target="_blank" title="Contáctanos por WhatsApp">
+    <i class="fab fa-whatsapp"></i>
+  </a>
+  <!-- Alert personalizado -->
+  <div id="customAlert" class="custom-alert"></div>
+  <main>
+    <!-- ... todas las secciones y contenido igual ... -->
+  </main>
+  <footer>
+    <!-- Menú inferior para móvil, integrado en el footer -->
+    <nav id="footer-app-menu" class="footer-app-menu">
+      <button data-section="services"><i class="fas fa-list"></i><span>Servicios</span></button>
+      <button data-section="order-stepper"><i class="fas fa-bolt"></i><span>Solicitar</span></button>
+      <button data-section="home" class="active"><i class="fas fa-home"></i><span>Inicio</span></button>
+      <button data-section="track"><i class="fas fa-search-location"></i><span>Mi Pedido</span></button>
+      <button data-section="faq"><i class="fas fa-question-circle"></i><span>FAQ</span></button>
+      <button data-section="gallery"><i class="fas fa-image"></i><span>Galería</span></button>
+      <button data-section="contact"><i class="fas fa-envelope"></i><span>Contacto</span></button>
+    </nav>
+    <div class="footer-content">
+      <span>© 2025 FastGo. Todos los derechos reservados.</span>
+      <span>Sitio desarrollado por rimedhn.</span>
+    </div>
+  </footer>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+  <script>
+    // --- Sincroniza la navegación en escritorio y móvil ---
+    function handleMenuClick(e) {
+      const section = e.currentTarget.getAttribute('data-section');
+      document.querySelectorAll('.app-menu button, .footer-app-menu button').forEach(btn => btn.classList.remove('active'));
+      document.querySelectorAll('.app-menu button[data-section="' + section + '"], .footer-app-menu button[data-section="' + section + '"]').forEach(btn => btn.classList.add('active'));
+      document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+      if (document.getElementById(section)) {
+        document.getElementById(section).classList.add('active');
+      }
+      // Si alguna sección requiere display block en vez de class "active", agrega aquí la lógica
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      document.querySelectorAll('.app-menu button, .footer-app-menu button').forEach(btn => {
+        btn.addEventListener('click', handleMenuClick);
+      });
+    });
+  </script>
+</body>
+</html>
