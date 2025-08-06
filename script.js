@@ -310,7 +310,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
-const GOOGLE_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyRXbb5GYPHCvXWCgF8AH_i0up9oL9tEVcW03wXobcIA2ot82BZNvjoFWxhWCJcRqGtOA/exec"; // pon aquí tu URL
+const SHEETDB_URL = "https://sheetdb.io/api/v1/62aiawhmn45df"; // pon aquí tu URL SheetDB
 
 document.getElementById("whatsapp-send-btn").onclick = function(e) {
   e.preventDefault();
@@ -333,29 +333,30 @@ document.getElementById("whatsapp-send-btn").onclick = function(e) {
 
   let pedidoID = "FG" + Date.now().toString().slice(-6);
 
-  // 1. Guardar el pedido en Google Sheet con estado "Creado"
-  fetch(GOOGLE_WEBAPP_URL, {
+  // Guardar el pedido en SheetDB
+  fetch(SHEETDB_URL, {
     method: "POST",
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({
-      id_pedido: pedidoID,
-      nombre_cliente: nombre_cliente,
-      telefono_cliente: telefono_cliente,
-      servicio: service.nombre,
-      descripcion: descripcion,
-      origen: origen,
-      destino: destino,
-      cords_origen: originCoords,
-      cords_destino: destinationCoords,
-      estado: "Creado", // Estado inicial
-      notas: notas
-    }),
-    headers: {
-      "Content-Type": "application/json"
-    }
+      data: {
+        id_pedido: pedidoID,
+        nombre_cliente: nombre_cliente,
+        telefono_cliente: telefono_cliente,
+        servicio: service.nombre,
+        descripcion: descripcion,
+        origen: origen,
+        destino: destino,
+        cords_origen: originCoords.join(","),
+        cords_destino: destinationCoords.join(","),
+        estado: "Creado",
+        fecha: new Date().toISOString(),
+        notas: notas
+      }
+    })
   })
-  .then(r => r.text())
+  .then(r => r.json())
   .then(res => {
-    // Mostrar el ID de pedido al cliente para seguimiento
+    // WhatsApp y feedback como antes
     customAlert(`¡Pedido guardado! Tu ID de seguimiento es:\n${pedidoID}`, "success");
     feedback.innerHTML = `
       <div style="background:#e6f9ee;color:#267a4c;padding:7px 14px;border-radius:8px;font-weight:600;">
@@ -363,8 +364,6 @@ document.getElementById("whatsapp-send-btn").onclick = function(e) {
         <span>ID de pedido para seguimiento: <strong>${pedidoID}</strong></span>
       </div>
     `;
-
-    // WhatsApp con todos los datos relevantes y el ID de pedido
     let msg =
 `*Pedido FastGo*
 Nombre: ${nombre_cliente}
@@ -382,7 +381,6 @@ Notas: ${notas || 'Sin notas'}
 ID Pedido: ${pedidoID}
 Estado inicial: Creado
 `;
-
     let waUrl = "https://wa.me/50493593126?text=" + encodeURIComponent(msg);
     window.open(waUrl, "_blank");
   })
