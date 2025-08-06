@@ -222,10 +222,11 @@ main {
   }
 }
 
-/* Botón flotante WhatsApp */
+/* Botón flotante WhatsApp - AJUSTE para móvil: más arriba */
 .whatsapp-float {
   position: fixed;
-  bottom: 100px;
+  /* Antes: bottom: 80px; */
+  bottom: 140px; /* Sube el botón para no tapar la barra de navegación en móvil */
   right: 19px;
   background: #25d366;
   color: #fff;
@@ -239,6 +240,13 @@ main {
   transition: background .17s;
 }
 .whatsapp-float:hover { background: #43a047; color: #fff; }
+
+/* En escritorio, puedes mantener el botón en la posición original */
+@media (min-width: 900px) {
+  .whatsapp-float {
+    bottom: 80px;
+  }
+}
 
 /* Custom Alert */
 .custom-alert {
