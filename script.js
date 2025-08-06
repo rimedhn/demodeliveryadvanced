@@ -349,7 +349,7 @@ document.getElementById("whatsapp-send-btn").onclick = function(e) {
         cords_origen: originCoords.join(","),
         cords_destino: destinationCoords.join(","),
         estado: "Creado",
-        fecha: new Date().toISOString(),
+        fecha: fechaLegible(), // <-- Aquí la fecha legible
         notas: notas
       }
     })
@@ -436,3 +436,14 @@ document.querySelectorAll('.faq-list details').forEach(det => {
     else det.style.background = '#f7fdf7';
   });
 });
+
+function fechaLegible() {
+  const fecha = new Date();
+  const dia = String(fecha.getDate()).padStart(2, '0');
+  const mes = String(fecha.getMonth() + 1).padStart(2, '0');
+  const año = fecha.getFullYear();
+  const hora = String(fecha.getHours()).padStart(2, '0');
+  const minutos = String(fecha.getMinutes()).padStart(2, '0');
+  const segundos = String(fecha.getSeconds()).padStart(2, '0');
+  return `${dia}/${mes}/${año} ${hora}:${minutos}:${segundos}`;
+}
