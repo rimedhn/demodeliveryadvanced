@@ -310,7 +310,7 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
-const GOOGLE_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxViOKIlVnb-4RLunZV_dIEAz3U4xA9c5kcXIWZ_ayMafILcYobJ5J9GK3dOti4zKlQTg/exec"; // pon aquí tu URL
+const GOOGLE_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyRXbb5GYPHCvXWCgF8AH_i0up9oL9tEVcW03wXobcIA2ot82BZNvjoFWxhWCJcRqGtOA/exec"; // pon aquí tu URL
 
 document.getElementById("whatsapp-send-btn").onclick = function(e) {
   e.preventDefault();
