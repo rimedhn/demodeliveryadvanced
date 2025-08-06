@@ -1,0 +1,176 @@
+/* Menú tipo app (solo escritorio) */
+.app-menu {
+  position: fixed;
+  bottom: 0;
+  left: 0; right: 0;
+  height: 62px;
+  background: #23272f;
+  display: flex;
+  z-index: 100;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.13);
+  border-top: 1px solid #333;
+  border-radius: 18px 18px 0 0;
+  justify-content: space-between;
+}
+.app-menu button {
+  flex: 1 1 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: #bbb;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+  position: relative;
+  border-radius: 12px;
+  min-width: 50px;
+  margin: 0 2px;
+  z-index: 110;
+}
+.app-menu button.active,
+.app-menu button:hover {
+  color: #4caf50;
+  background: linear-gradient(90deg, #222c22 80%, #1c1c1c 100%);
+}
+.app-menu button .fas, .app-menu button .fa {
+  font-size: 22px;
+  margin-bottom: 2px;
+  transition: transform 0.18s;
+}
+.app-menu button.active .fas, .app-menu button.active .fa {
+  transform: scale(1.18);
+}
+.app-menu button span {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+/* --- Menú inferior integrado en footer para móvil --- */
+.footer-app-menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #23272f;
+  border-top: 1px solid #333;
+  border-radius: 18px 18px 0 0;
+  height: 62px;
+  margin-bottom: 0;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.13);
+  z-index: 100;
+  padding: 0;
+  position: relative;
+}
+.footer-app-menu button {
+  flex: 1 1 0;
+  background: none;
+  border: none;
+  outline: none;
+  color: #bbb;
+  font-size: 16px;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, background 0.2s;
+  cursor: pointer;
+  position: relative;
+  border-radius: 12px;
+  min-width: 50px;
+  margin: 0 2px;
+}
+.footer-app-menu button.active,
+.footer-app-menu button:hover {
+  color: #4caf50;
+  background: linear-gradient(90deg, #222c22 80%, #1c1c1c 100%);
+}
+.footer-app-menu button .fas, .footer-app-menu button .fa {
+  font-size: 22px;
+  margin-bottom: 2px;
+  transition: transform 0.18s;
+}
+.footer-app-menu button.active .fas, .footer-app-menu button.active .fa {
+  transform: scale(1.18);
+}
+.footer-app-menu button span {
+  font-size: 12px;
+  letter-spacing: 0.4px;
+}
+
+/* Footer con barra de menú integrada */
+footer {
+  background: #23272f;
+  color: #ddd;
+  text-align: center;
+  padding: 0 0 10px 0;
+  font-size: 1em;
+  border-top: 1px solid #1b8d40;
+  border-radius: 22px 22px 0 0;
+  width: 100vw;
+  left: 0; right: 0;
+  position: fixed;
+  bottom: 0;
+  z-index: 80;
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  padding-bottom: 7px;
+}
+
+/* Main con padding extra para footer+menu */
+main {
+  padding-bottom: 120px;
+  min-height: calc(100vh - 62px - 62px);
+  position: relative;
+}
+@media (min-width:900px) {
+  /* En escritorio, solo muestra menú superior original */
+  .footer-app-menu { display: none; }
+  .app-menu { display: flex; }
+  main {
+    padding-top: 74px;
+    padding-bottom: 0;
+    min-height: calc(100vh - 68px - 66px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  footer {
+    padding: 14px 0 22px 0;
+  }
+}
+@media (max-width:899px) {
+  .app-menu { display: none !important; }
+  .footer-app-menu { display: flex; }
+}
+
+/* Botón flotante WhatsApp sigue igual */
+.whatsapp-float {
+  position: fixed;
+  bottom: 80px;
+  right: 19px;
+  background: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  width: 56px; height: 56px;
+  display: flex;
+  align-items: center; justify-content: center;
+  font-size: 2.2em;
+  box-shadow: 0 4px 14px rgba(76,175,80,0.14);
+  z-index: 120;
+  transition: background .17s;
+}
+.whatsapp-float:hover { background: #43a047; color: #fff; }
+
+/* --- El resto del CSS se mantiene igual, no modificado --- */
+/* ... aquí va el resto de tu CSS sin cambios ... */
