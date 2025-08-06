@@ -226,7 +226,7 @@ main {
 .whatsapp-float {
   position: fixed;
   /* Antes: bottom: 80px; */
-  bottom: 140px; /* Sube el botón para no tapar la barra de navegación en móvil */
+  bottom: 160px; /* Sube el botón para no tapar la barra de navegación en móvil */
   right: 19px;
   background: #25d366;
   color: #fff;
@@ -244,7 +244,7 @@ main {
 /* En escritorio, puedes mantener el botón en la posición original */
 @media (min-width: 900px) {
   .whatsapp-float {
-    bottom: 80px;
+    bottom: 100px;
   }
 }
 
