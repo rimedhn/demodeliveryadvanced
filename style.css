@@ -713,3 +713,10 @@ footer {
   from {opacity: 0; transform: translateY(16px);}
   to {opacity: 1; transform: none;}
 }
+
+.whatsapp-float {
+  text-decoration: none !important;
+}
+.whatsapp-float i {
+  text-decoration: none !important;
+}
