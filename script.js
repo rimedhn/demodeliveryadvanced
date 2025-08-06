@@ -310,23 +310,22 @@ window.addEventListener('DOMContentLoaded', () => {
   };
 });
 
-// Reemplaza la URL con la de tu Web App de Google Apps Script (ver instrucciones previas)
-const GOOGLE_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxViOKIlVnb-4RLunZV_dIEAz3U4xA9c5kcXIWZ_ayMafILcYobJ5J9GK3dOti4zKlQTg/exec";
+const GOOGLE_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbxViOKIlVnb-4RLunZV_dIEAz3U4xA9c5kcXIWZ_ayMafILcYobJ5J9GK3dOti4zKlQTg/exec"; // pon aquí tu URL
 
 document.getElementById("whatsapp-send-btn").onclick = function(e) {
   e.preventDefault();
 
   let serviceId = document.getElementById("serviceType").value;
   let service = services.find(s => s.id === serviceId);
-  let desc = document.getElementById("description").value.trim();
-  let origin = document.getElementById("origin").value.trim();
-  let dest = document.getElementById("destination").value.trim();
-  let name = document.getElementById("clientName").value.trim();
-  let phone = document.getElementById("clientPhone").value.trim();
-  let notes = document.getElementById("notes").value.trim();
+  let descripcion = document.getElementById("description").value.trim();
+  let origen = document.getElementById("origin").value.trim();
+  let destino = document.getElementById("destination").value.trim();
+  let nombre_cliente = document.getElementById("clientName").value.trim();
+  let telefono_cliente = document.getElementById("clientPhone").value.trim();
+  let notas = document.getElementById("notes").value.trim();
   let feedback = document.getElementById("orderFeedback");
 
-  if (!service || !desc || !origin || !dest || !name || !phone || !originCoords || !destinationCoords) {
+  if (!service || !descripcion || !origen || !destino || !nombre_cliente || !telefono_cliente || !originCoords || !destinationCoords) {
     customAlert("Por favor completa todos los campos y selecciona los puntos en el mapa.", "error");
     feedback.textContent = "";
     return;
@@ -334,55 +333,62 @@ document.getElementById("whatsapp-send-btn").onclick = function(e) {
 
   let pedidoID = "FG" + Date.now().toString().slice(-6);
 
-  // 1. Guardar el pedido en Google Sheet
+  // 1. Guardar el pedido en Google Sheet con estado "Creado"
   fetch(GOOGLE_WEBAPP_URL, {
     method: "POST",
     body: JSON.stringify({
       id_pedido: pedidoID,
-      nombre: name,
-      phone: phone,
+      nombre_cliente: nombre_cliente,
+      telefono_cliente: telefono_cliente,
       servicio: service.nombre,
-      desc: desc,
-      origin: origin,
-      originCoords: originCoords,
-      dest: dest,
-      destinationCoords: destinationCoords,
-      notes: notes
+      descripcion: descripcion,
+      origen: origen,
+      destino: destino,
+      cords_origen: originCoords,
+      cords_destino: destinationCoords,
+      estado: "Creado", // Estado inicial
+      notas: notas
     }),
     headers: {
       "Content-Type": "application/json"
     }
-  }).then(r => r.text())
-    .then(res => {
-      // 2. Abrir WhatsApp con el mensaje
-      let msg =
-`*Pedido FastGo*
-Nombre: ${name}
-Teléfono: ${phone}
-Servicio: ${service.nombre} (${service.categoria})
-Descripción: ${desc}
+  })
+  .then(r => r.text())
+  .then(res => {
+    // Mostrar el ID de pedido al cliente para seguimiento
+    customAlert(`¡Pedido guardado! Tu ID de seguimiento es:\n${pedidoID}`, "success");
+    feedback.innerHTML = `
+      <div style="background:#e6f9ee;color:#267a4c;padding:7px 14px;border-radius:8px;font-weight:600;">
+        <span>¡Pedido guardado y listo para enviar por WhatsApp!</span><br>
+        <span>ID de pedido para seguimiento: <strong>${pedidoID}</strong></span>
+      </div>
+    `;
 
-Origen: ${origin}
+    // WhatsApp con todos los datos relevantes y el ID de pedido
+    let msg =
+`*Pedido FastGo*
+Nombre: ${nombre_cliente}
+Teléfono: ${telefono_cliente}
+Servicio: ${service.nombre}
+Descripción: ${descripcion}
+
+Origen: ${origen}
 Ubicación: https://maps.google.com/?q=${originCoords[0]},${originCoords[1]}
 
-Destino: ${dest}
+Destino: ${destino}
 Ubicación: https://maps.google.com/?q=${destinationCoords[0]},${destinationCoords[1]}
 
-Notas: ${notes || 'Sin notas'}
-Precio base: $${service.precio_base}
-Horario servicio: ${service.horario}
+Notas: ${notas || 'Sin notas'}
 ID Pedido: ${pedidoID}
+Estado inicial: Creado
 `;
 
-      let waUrl = "https://wa.me/50493593126?text=" + encodeURIComponent(msg);
-      window.open(waUrl, "_blank");
-      customAlert("¡Pedido guardado y listo para enviar por WhatsApp!", "success");
-      feedback.textContent = "¡Pedido guardado y listo para enviar por WhatsApp!";
-      feedback.style.color = "green";
-    })
-    .catch(() => {
-      customAlert("Error al guardar el pedido, intente nuevamente.", "error");
-    });
+    let waUrl = "https://wa.me/50493593126?text=" + encodeURIComponent(msg);
+    window.open(waUrl, "_blank");
+  })
+  .catch(() => {
+    customAlert("Error al guardar el pedido, intente nuevamente.", "error");
+  });
 };
 
 document.getElementById("track-form").onsubmit = function(e) {
