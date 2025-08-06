@@ -54,13 +54,13 @@
 .footer-app-menu {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  //*align-items: center;*//
   background: #23272f;
-  border-top: 1px solid #333;
+  //*border-top: 1px solid #333;*//
   border-radius: 18px 18px 0 0;
   height: 62px;
   margin-bottom: 0;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.13);
+  //*box-shadow: 0 -2px 16px rgba(0,0,0,0.13);*//
   z-index: 100;
   padding: 0;
   position: relative;
